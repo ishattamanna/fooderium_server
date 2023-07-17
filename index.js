@@ -33,6 +33,7 @@ async function run() {
 
         const mealsCategoryCollection = client.db("fooderiumDb").collection("mealsCategory");
         const drinksCategoryCollection = client.db("fooderiumDb").collection("drinksCategory");
+        const mealsCollection = client.db("fooderiumDb").collection("meals");
 
 
         app.get("/meals-collection", async (req, res) => {
@@ -47,6 +48,14 @@ async function run() {
             const query = { type: req.query.type };
             const drinksCategory = await drinksCategoryCollection.find(query).toArray();
             res.send(drinksCategory);
+        });
+
+        app.get("/category-meals", async (req, res) => {
+            const query = { categoryId: req.query.categoryId };
+            const meals = await mealsCollection.find(query).toArray();
+            res.send(meals);
+
+
         });
 
 
